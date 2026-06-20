@@ -3,7 +3,7 @@
 Automated AWS cost-governance system that scans your account daily, flags unused or idle resources, estimates wasted spend, and emails a report — fully serverless, fully scheduled, zero manual effort.
 
 ![AWS](https://img.shields.io/badge/AWS-Lambda%20%7C%20EventBridge%20%7C%20DynamoDB%20%7C%20SES-orange?logo=amazon-aws)
-![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python)
 ![Architecture](https://img.shields.io/badge/Architecture-Serverless-success)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
@@ -81,52 +81,31 @@ cloud-cost-optimizer/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
-├── requirements.txt
-├── template.yaml                 # (optional) SAM/CloudFormation IaC template
-│
+├── architecture/
+│       └── architecture.png
 ├── src/
-│   └── lambda_function/
-│       ├── __init__.py
-│       ├── handler.py            # Lambda entry point (lambda_handler)
-│       ├── scanners/
-│       │   ├── __init__.py
-│       │   ├── ec2_scanner.py
-│       │   ├── ebs_scanner.py
-│       │   ├── rds_scanner.py
-│       │   └── s3_scanner.py
-│       ├── cost_explorer.py      # Cost Explorer API queries
-│       ├── findings_store.py     # DynamoDB read/write logic
-│       ├── report_builder.py     # Report generation (text/HTML/CSV)
-│       └── notifier.py           # SES email sending
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_ec2_scanner.py
-│   ├── test_ebs_scanner.py
-│   ├── test_rds_scanner.py
-│   ├── test_s3_scanner.py
-│   ├── test_report_builder.py
-│   └── fixtures/
-│       └── sample_findings.json
+├── lambda_function.py
+├── scanners/
+│       └── ec2_scanner.py
+│       └── ebs_scanner.py
+│       └── rds_scanner.py
+│       └── s3_scanner.py
 │
 ├── policies/
-│   └── lambda-policy.json        # Custom IAM policy (least privilege)
+│   └── AWSLambdaBasicExecutionRole.json        
+│    └── LambdaMonitoringPolicy.json	# Custom IAM policy (least privilege)
 │
-├── infra/                        # Infrastructure-as-code (if not using template.yaml)
-│   ├── dynamodb_table.tf
-│   ├── eventbridge_rule.tf
-│   ├── iam_role.tf
-│   └── lambda.tf
-│
-├── docs/
-│   ├── architecture.png
-│   ├── sample-report.md
+├── screenshots/
 │   └── screenshots/
 │       └── ses-email-example.png
-│
-└── .github/
-    └── workflows/
-        └── deploy.yml            # CI/CD: lint, test, package, deploy on push
+│       └── cloudwatch_logs.png
+│       └── dynamodb_findings.png
+│       └── dynamodb_table.png
+│       └── eventbridge_schedule.png
+│       └── iam_role.png
+│       └── lambda_function_code.png
+│       └── lambda_execution_success.png
+
 ```
 
 ---
